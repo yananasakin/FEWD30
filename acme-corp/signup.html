@@ -62,24 +62,21 @@
       main p {
         margin-bottom: 0;
       }
-
-      .fname{
-        float: right;
+      form {
+        display: flex;
       }
 
-      input .li{
-        flex: 1;
-
+      form .prompt{
+        width: 120px;
+        padding: 5px 5px 5px 0px;
+        font-weight: bold;
       }
-
-      li{
-        flex: 1;
+      .answer{
+        border-radius: 3px;
+        border: 1px solid lightpink;
+        padding: 4px;
+        color: grey;
       }
-
-      input{
-        flex:
-      }
-
       footer {
         color: #9A989A;
         font-size: 12px;
@@ -112,33 +109,43 @@
 
     <main>
       <h1>Sign Up</h1>
-      <form class="form" action="index.html" method="post">
-        <ul>
-        <li class="form-group">
-      <label>First Name
-        </label>
-      <input type="text" name="fname" value="" placeholder="John">
-    </li>
-        <li class="form-group">
-          <label>Last Name
-        </label>
-      <input type="email" name="fname" value="" placeholder="Smith">
-    </li>
-        <li class="form-group">
-          <label>Email
-        </label>
-      <input type="text" name="fname" value="">
-    </li>
-        <li class="form-group">
-          <label>Password
-        </label>
-          <input type="password" name="fname" value="">
-    </li>
-  </ul>
-      <div class="form-group">
-            <input type="submit" name="submit" value="Save my info!">
-          </div>
-      </form>
+      <p>
+      </p>
+      <form>
+        <label class="prompt">First Name</label>
+          <input class="answer" type="text" name="fname" placeholder="first" required>
+        </form>
+        <p>
+        </p>
+        <form>
+          <label class="prompt">Last Name</label>
+            <input class="answer" type="text" name="lname" placeholder="Last" required>
+          </form>
+          <p>
+          </p>
+          <form>
+            <label class="prompt">Email</label>
+            <input class="answer" type="email" name="email" placeholder="email" required>
+          </form>
+            <p>
+            </p>
+            <form>
+              <label class="prompt">Password</label>
+              <input class="answer" type="password" placeholder="password" required>
+            </form>
+            <p>
+            </p>
+            <form>
+              <input type="checkbox">
+              <b>Agree to our terms of service</b>
+            </form>
+            <p>
+            </p>
+            <form>
+              <input type="submit" value="Sign Up">
+            </form>
+            <p>
+            </p>
     </main>
 
     <footer>
