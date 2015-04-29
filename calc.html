@@ -1,0 +1,115 @@
+
+<!-- saved from url=(0039)http://avandamiri.com/fewd-30/calc.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+body { font-size: 20px; font-family: sans-serif; }
+
+td { width: 100px; text-align: center; }
+.placeholder, button { width: 100%; }
+.placeholder { height: 23px; border: 1px solid #bababa; border-radius: 3px; }
+button { cursor: pointer; border: 1px solid #58c0f5; color: #58c0f5; background-color: white; font: inherit; }
+button { background-color: #58c0f5; color: white; border-radius: 3px; }
+</style>
+
+</head><body><table>
+  <tbody><tr>
+    <td>
+      <div id="first-operand" class="placeholder" contenteditable=""></div>
+    </td>
+    <td>
+      <div id="second-operand" class="placeholder" contenteditable=""></div>
+    </td>
+    <td>
+      =
+    </td>
+    <td>
+      <div id="result" class="placeholder"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button id="add-button" class="inverted-button">+</button>
+    </td>
+    <td>
+      <button id="subtract-button" class="inverted-button">-</button>
+    </td>
+    <td>
+      <button id="multiply-button" class="inverted-button">*</button>
+    </td>
+    <td>
+      <button id="divide-button" class="inverted-button">/</button>
+    </td>
+  </tr>
+</tbody></table>
+
+<script>
+
+  // add button //
+  var addButton = document.querySelector("#add-button");
+  function addButtonClicked(clickEvent) {
+    var firstOperand = document.getElementById("first-operand");
+    var secondOperand = document.getElementById("second-operand");
+    var result = document.getElementById("result");
+    var a = firstOperand.textContent;
+    var b = secondOperand.textContent;
+    var a = parseInt(a);
+    var b = parseInt(b);
+    var sum = a + b;
+    result.textContent = sum;
+  }
+  addButton.addEventListener("click", addButtonClicked);
+
+  // subtract button //
+  var subtractButton = document.querySelector("#subtract-button");
+
+  function subtractButtonClicked(clickEvent) {
+    var firstOperand = document.getElementById("first-operand");
+    var secondOperand = document.getElementById("second-operand");
+    var result = document.getElementById("result");
+    var a = firstOperand.textContent;
+    var b = secondOperand.textContent;
+    var a = parseInt(a);
+    var b = parseInt(b);
+    var difference = a - b;
+    result.textContent = difference;
+  }
+
+  subtractButton.addEventListener("click", subtractButtonClicked);
+
+  // multiply button //
+
+  var multiplyButton = document.querySelector("#multiply-button");
+
+    function multiplyButtonClicked(clickEvent) {
+      var firstOperand = document.getElementById("first-operand");
+      var secondOperand = document.getElementById("second-operand");
+      var result = document.getElementById("result");
+      var a = firstOperand.textContent;
+      var b = secondOperand.textContent;
+      var a = parseInt(a);
+      var b = parseInt(b);
+      var product = a * b;
+      result.textContent = product;
+    }
+
+  multiplyButton.addEventListener("click", multiplyButtonClicked);
+
+  // divide button //
+  var divideButton = document.querySelector("#divide-button");
+
+  function divideButtonClicked(clickEvent) {
+    var firstOperand = document.getElementById("first-operand");
+    var secondOperand = document.getElementById("second-operand");
+    var result = document.getElementById("result");
+    var a = firstOperand.textContent;
+    var b = secondOperand.textContent;
+    var a = parseInt(a);
+    var b = parseInt(b);
+    var divide = a / b;
+    result.textContent = divide;
+  }
+
+  divideButton.addEventListener("click", divideButtonClicked);
+
+
+</script>
+</body></html>
