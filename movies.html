@@ -1,0 +1,62 @@
+
+<ul id="movies">
+  <!-- Movies will go here, see below. -->
+</ul>
+
+<script>
+var favoriteMovies = [
+  {
+    name: 'Cool Runnings',
+    year: 1993,
+    url: 'http://www.imdb.com/title/tt0106611/',
+    ratings: [5, 5, 5, 5, 5, 5, 5, 5]
+  },
+  {
+    name: 'Terminator 2',
+    year: 1991,
+    url: 'http://www.imdb.com/title/tt0103064/',
+    ratings: [5, 4, 3, 5, 4, 5, 4, 5, 5, 5, 3]
+  },
+  {
+    name: 'Interstellar',
+    year: 2014,
+    url: 'http://www.imdb.com/title/tt0816692/',
+    ratings: [5, 3, 5, 5, 1, 2, 4, 5, 5, 2]
+   }
+]
+
+var movieList = document.querySelector("#movies");
+
+function loadMovies (){
+  for(var i = 0; i < favoriteMovies.length ; i++) {
+    var listItem = document.createElement("li");
+    listItem.setAttribute("Class","listItems")
+
+    var movieLink = document.createElement("a");
+    movieLink.setAttribute("href",favoriteMovies[i].url);
+    movieLink.textContent = favoriteMovies[i].name;
+
+    var movieInfo = document.createElement("span");
+    var numRating = favoriteMovies[i].ratings.length;
+
+
+    var ratingSum = 0;
+       for(var j = 0; j < numRating; j++) {
+         ratingSum = parseInt(ratingSum + favoriteMovies[i].ratings[j]);
+       }
+
+
+    var ratingAvg = Math.round(ratingSum/numRating * 10) /10;
+
+
+    movieInfo.textContent = " (" + favoriteMovies[i].year + ", " + ratingAvg + " Stars, " + numRating + " ratings)";
+
+
+    movies.appendChild(listItem);
+    listItem.appendChild(movieLink);
+    listItem.appendChild(movieInfo);
+  }
+}
+
+loadMovies();
+</script>
