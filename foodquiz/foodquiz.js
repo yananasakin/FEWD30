@@ -1,288 +1,193 @@
-<script> src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+var levelNumber = 1;
+var score = 0;
+
+var foods = {
+      "Index [0]" : {},
+
+      "Ceviche" : {
+          Origin: "South American, Spanish",
+      },
+
+      "Shakshouka": {
+          Origin: "North Africa",
+      },
+
+      "Fesenjan": {
+          Origin: "Iran",
+      },
+
+      "Carpaccio": {
+          Origin: "Italy",
+      },
+
+      "Goulash": {
+          Origin: "Central Europe, Hungary",
+      },
+
+      "Bibimbap": {
+          Origin: "Korea",
+      },
+
+      "Pelmeni" : {
+          Origin: "Russia",
+      },
+
+      "Chilaquiles": {
+          Origin: "Mexico",
+      },
+
+      "Okinomiyaki": {
+          Origin: "Japan",
+      },
+
+      "Hachis Parmentier" :{
+          Origin: "France",
+      }
+}
+
+var foodAnswers = Object.keys(foods);
+
+var foodPool = [
+    "Ceviche",
+    "Shakshouka",
+    "Fesenjan",
+    "Carpaccio",
+    "Goulash",
+    "Bibimbap",
+    "Pelmeni",
+    "Chilaquiles",
+    "Okinomiyaki",
+    "Hachis Parmentier",
+    "Paella",
+    "Sashimi",
+    "Bibimbap",
+    "Fallafel",
+    "Taboulli",
+    "Shashlik Kebap",
+    "Mandu",
+    "Roti",
+    "Beef Bourguignon",
+    "Gnocchi",
+    "Bruschetta",
+    "Börek",
+    "Shnitzel",
+    "Khachapuri",
+    "Kim Bap",
+    "Kimchi",
+    "Kalbi Beef",
+    "Piroshki",
+    "Baozi",
+    "Aguachiles",
+    "Enchiladas",
+    "Chalupas",
 
 
-<script>
-var quiztitle = "Food Quiz";
+];
+
+var usedFoods = [];
+var correctFoods = [];
+var incorrectFoods = [];
+
+$(document).ready(function(){
+      writeLevel();
+} )
+
+function writeLevel() {
+      if (levelNumber === 11) {
+            writeFinalScorePage();
+      } else {
+          writeButtons();
+          writeCorrectButton();
+      }
+}
+
+function inArray (item, array) {
+      var count = array.length || 1;
+      for (var i=0; i<count; i++) {
+          if (array[i] === item) {
+              return true;
+          }
+      }
+      return false;
+}
+
+//// Writes all buttons at random
+function writeButtons() {
+	for (var i = 0; i<6; i++) {
+		var foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// Chooses dish name at random
+		while (foodRandom === foodAnswers[levelNumber] || inArray(foodRandom, usedFoods) === true) { //// Conditions that need to be met before a dish name is written into a button
+			foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// If conditions aren't met, then dish name is generated again
+		}
+		$("ul.button-container").append("<li class='button'>" + foodRandom + "</li>"); //// Appends new <li> with generated dish name
+		usedFoods.push(foodRandom); //// Puts dish name into list for later comparison
+	}
+	$("ul.button-container li").on("click", answerWrong) //// Sets all <li> with "answerWrong" on click event
+			  				   .on("click", colorWrong); //// Sets all <li> with "colorWrong" on click event
+}
+
+//// Overwrites one of the six "li" at random with the correct answer
+function writeCorrectButton() {
+	$("ul.button-container li").eq(Math.floor(Math.random()*6)).text(foodAnswers[levelNumber]) //// Writes food name of correct answer for current level
+											  .attr("id", "correct") //// Sets this button as the correct button
+											  .off("click", colorWrong) //// Turns off "colorWrong" click event set previously
+											  .off("click", answerWrong) //// Turns off "answerWrong" click event set previously
+											  .on("click", answerCorrect); //// Sets button with "answerCorrect" click event
+}
+
+//////// When CORRECT BUTTON is clicked ////////
+
+// Button Function
+function answerCorrect() {
+	colorCorrect();
+	turnOffAllButtons();
+	correctFoods.push(foodAnswers[levelNumber]);
+	// showInfo(foodAnswers[levelNumber]);
+	scoreIncrease();
+}
+
+// Button Appearance
+function colorCorrect() {
+    $("#correct").css("background", "rgb(94, 192, 0)"); // Highlights correct button
+}
 
 
-var quiz = [
-       {
-           "image" :  'http://www.epicurious.com/recipes/food/views/ceviche-de-camaron-shrimp-ceviche-cocktail-104995',
-           "choices" : [
-                                   "Ceviche",
-                                   "Paella",
-                                   "Sashimi",
-                                   "Bibimbap",
-                               ],
-           "correct" : "Ceviche",
-           "origin" : "South American Spanish",
-       },
-       {
-           "image" : "http://smittenkitchen.com/blog/2010/04/shakshuka/",
-           "choices" : [
-                                   "Fallafel",
-                                   "Taboulli",
-                                   "Shakshouka",
-                                   "Tajine",
-                               ],
-           "correct" : "Shakshouka",
-           "origin" : "North Africa",
-       },
-       {
+//////// When WRONG BUTTON is clicked ////////
 
-           "image" : "http://www.mypersiankitchen.com/khoresht-fesenjan-persian-pomegranate-and-walnut-stew",
-           "choices" : [
-                                   "Shashlik Kebap",
-                                   "Fesenjan",
-                                   "Mandu",
-                                   "Roti",
-                               ],
-           "correct" : "Fesenjan",
-           "origin" : "Iran",
-       },
+// Button Function
+function answerWrong() {
+	turnOffAllButtons();
+	incorrectFoods.push(foodAnswers[levelNumber]);
+	// showInfo(foodAnswers[levelNumber]);
+}
 
-       {
-          "image" : "http://cooking.nytimes.com/recipes/1014999-beef-carpaccio",
-          "choices" : [
-                                    "Beef Bourguignon",
-                                    "Gnocchi",
-                                    "Bruschetta",
-                                    "Carpaccio",
-                                ],
-          "correct" : "Carpaccio",
-          "origin" : "Italy",
-
-       },
-
-       {
-          "image" : "http://www.budapestbylocals.com/hungarian-goulash.html",
-          "choices" : [
-                                    "Goulash",
-                                    "Börek",
-                                    "Shnitzel",,
-                                    "Khachapuri",
-                                ],
-          "correct" : "Goulash",
-          "origin" : "Hungary, Central Europe",
-       },
-
-       {
-          "image" : "http://mykoreankitchen.com/2013/07/12/bibimbap-korean-mixed-rice-with-meat-and-assorted-vegetables/",
-          "choices" : [
-                                    "Bibimbap",
-                                    "Kim Bap",
-                                    "Kimchi",
-                                    "Kalbi Beef",
-                                ],
-          "correct" : "Bibimbap",
-          "origin" : "Korea",
-       },
-
-       {
-          "image" :
-          "http://natashaskitchen.com/2011/05/09/russian-pelmeni-recipe-new-dough-recipe/",
-          "choices" : [
-                                    "Piroshki",
-                                    "Baozi",
-                                    "Pelmeni",
-                                    "Goluptzi",
-          ]
-          "correct" : "Pelmeni",
-          "origin" : "Russia",
-       },
-
-       {
-          "image" :
-          "http://www.epicurious.com/recipes/food/views/chilaquiles-verdes-354951",
-          "choices" : [
-                                    "Chilaquiles",
-                                    "Aguachiles",
-                                    "Enchiladas",
-                                    "Chalupas",
-          ],
-          "correct" : "Chilaquiles",
-          "origin" : "Mexico",
-       },
-
-       {
-          "image" : "http://norecipes.com/recipe/okonomiyaki-recipe",
-          "choices" : [
-                                    "Inari",
-                                    "Gyoza",
-                                    "Tekkadon",
-                                    "Okonomiyaki",
-          ],
-          "correct" : "Okonomiyaki",
-          "origin" : "Japan",
-        },
-
-        {
-          "image" : "http://www.globalgourmet.com/food/cookbook/2010/french-table/hachis-parmentier.html#axzz3b6ajXIf4",
-          "choices" : [
-                                    "Hachis Parmentier",
-                                    "Quiche Lorraine",
-                                    "Raclette",
-                                    "Bouillabaisse",
-          ],
-          "correct" : "Hachis Parmentier",
-          "origin" : "France",
-        },
-
-   ];
+// Button Appearance
+function colorWrong() {
+    $(this).css("background", "rgb(255, 111, 119)"); // Highlights selected incorrect button
+    $("#correct").css("background", "rgb(94, 192, 0)"); // Highlights correct answer
+}
 
 
-var currentquestion = 0,
-    score = 0,
-    submt = true,
-    picked;
+///////// TURN BUTTON EVENT LISTENERS OFF ////////
 
-jQuery(document).ready(function ($) {
+function turnOffAllButtons() {
+	$("#correct").off("click", answerCorrect);
+	$("ul.button-container li").off("click", colorWrong);
+	$("ul.button-container li").off("click", answerWrong);
+}
 
+//////// LEVEL APPEARANCE AFTER CLICK EVENT ////////
 
-    function htmlEncode(value) {
-        return $(document.createElement('div')).text(value).html();
-    }
+function scoreIncrease() {
+	score++;
+    $("#score").text("Score: " + score + " / 10");
+}
 
-
-    function addChoices(choices) {
-        if (typeof choices !== "undefined" && $.type(choices) == "array") {
-            $('#choice-block').empty();
-            for (var i = 0; i < choices.length; i++) {
-                $(document.createElement('li')).addClass('choice choice-box').attr('data-index', i).text(choices[i]).appendTo('#choice-block');
-            }
-        }
-    }
-
-    function nextQuestion() {
-        submt = true;
-        $('#origin').empty();
-        $('#question').text(quiz[currentquestion]['question']);
-        $('#pager').text('Question ' + Number(currentquestion + 1) + ' of ' + quiz.length);
-        if (quiz[currentquestion].hasOwnProperty('image') && quiz[currentquestion]['image'] != "") {
-            if ($('#question-image').length == 0) {
-                $(document.createElement('img')).addClass('question-image').attr('id', 'question-image').attr('src', quiz[currentquestion]['image']).attr('alt', htmlEncode(quiz[currentquestion]['question'])).insertAfter('#question');
-            } else {
-                $('#question-image').attr('src', quiz[currentquestion]['image']).attr('alt', htmlEncode(quiz[currentquestion]['question']));
-            }
-        } else {
-            $('#question-image').remove();
-        }
-        addChoices(quiz[currentquestion]['choices']);
-        setupButtons();
-
-
-    }
-
-
-    function processQuestion(choice) {
-        if (quiz[currentquestion]['choices'][choice] == quiz[currentquestion]['correct']) {
-            $('.choice').eq(choice).css({
-                'background-color': '#50D943'
-            });
-            $('#origin').html('<strong>Correct!</strong> ' + htmlEncode(quiz[currentquestion]['origin']));
-            score++;
-        } else {
-            $('.choice').eq(choice).css({
-                'background-color': '#D92623'
-            });
-            $('#origin').html('<strong>Incorrect.</strong> ' + htmlEncode(quiz[currentquestion]['origin']));
-        }
-        currentquestion++;
-        $('#submitbutton').html('NEXT QUESTION &raquo;').on('click', function () {
-            if (currentquestion == quiz.length) {
-                endQuiz();
-            } else {
-                $(this).text('Check Answer').css({
-                    'color': '#222'
-                }).off('click');
-                nextQuestion();
-            }
-        })
-    }
-
-
-    function setupButtons() {
-        $('.choice').on('mouseover', function () {
-            $(this).css({
-                'background-color': '#e1e1e1'
-            });
-        });
-        $('.choice').on('mouseout', function () {
-            $(this).css({
-                'background-color': '#fff'
-            });
-        })
-        $('.choice').on('click', function () {
-            picked = $(this).attr('data-index');
-            $('.choice').removeAttr('style').off('mouseout mouseover');
-            $(this).css({
-                'border-color': '#222',
-                'font-weight': 700,
-                'background-color': '#c1c1c1'
-            });
-            if (submt) {
-                submt = false;
-                $('#submitbutton').css({
-                    'color': '#000'
-                }).on('click', function () {
-                    $('.choice').off('click');
-                    $(this).off('click');
-                    processQuestion(picked);
-                });
-            }
-        })
-    }
-
-
-    function endQuiz() {
-        $('#origin').empty();
-        $('#question').empty();
-        $('#choice-block').empty();
-        $('#submitbutton').remove();
-        $('#question').text("You got " + score + " out of " + quiz.length + " correct.");
-        $(document.createElement('h2')).css({
-            'text-align': 'center',
-            'font-size': '4em'
-        }).text(Math.round(score / quiz.length * 100) + '%').insertAfter('#question');
-    }
-
-
-    function init() {
-        //add title
-        if (typeof quiztitle !== "undefined" && $.type(quiztitle) === "string") {
-            $(document.createElement('h1')).text(quiztitle).appendTo('#frame');
-        } else {
-            $(document.createElement('h1')).text("Quiz").appendTo('#frame');
-        }
-
-        //add pager and questions
-        if (typeof quiz !== "undefined" && $.type(quiz) === "array") {
-            //add pager
-            $(document.createElement('p')).addClass('pager').attr('id', 'pager').text('Question 1 of ' + quiz.length).appendTo('#frame');
-            //add first question
-            $(document.createElement('h2')).addClass('question').attr('id', 'question').text(quiz[0]['question']).appendTo('#frame');
-            //add image if present
-            if (quiz[0].hasOwnProperty('image') && quiz[0]['image'] != "") {
-                $(document.createElement('img')).addClass('question-image').attr('id', 'question-image').attr('src', quiz[0]['image']).attr('alt', htmlEncode(quiz[0]['question'])).appendTo('#frame');
-            }
-            $(document.createElement('p')).addClass('origin').attr('id', 'origin').html('&nbsp;').appendTo('#frame');
-
-            //questions holder
-            $(document.createElement('ul')).attr('id', 'choice-block').appendTo('#frame');
-
-            //add choices
-            addChoices(quiz[0]['choices']);
-
-            //add submit button
-            $(document.createElement('div')).addClass('choice-box').attr('id', 'submitbutton').text('Check Answer').css({
-                'font-weight': 700,
-                'color': '#222',
-                'padding': '30px 0'
-            }).appendTo('#frame');
-
-            setupButtons();
-        }
-    }
-
-    init();
-});
+// function showInfo(foodorigin) {
+// 	var foodQuery = $("#correct").text().split(" ").join("+")
+// 	$("footer").html("<div id='info'></div><div class='footer-button' id='next'>Next Level ></div><a class='footer-button' id='see-food' target='_blank' href='https://www.google.com/search?q=" + foodQuery + "'>See Dish</a>")
+// 	           .css({'opacity': '0'});
+// 	$("#info").html("<p><span class='bold'>Name: </span>" + foodorigin + "</p>
+//   <p><span class='bold'>Food Origin: </span>" + foods[foodname] </p>");
+// 	$("#next").on("click", writeNextLevel);
+// 	$("footer").animate({opacity:'1'}, 300);
+// }

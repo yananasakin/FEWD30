@@ -9,7 +9,7 @@ body {
 }
 
 .center {
-	width: 775px;
+	width: 700px;
 	margin: auto;
 }
 
@@ -32,9 +32,13 @@ h3 {
 	float: right;
 }
 
-#word-image {
+#food-image {
 	display: block;
-	margin: 110px auto;
+	margin: 20px auto;
+}
+
+.food-container {
+	margin: 0 auto;
 }
 
 .button-container {
@@ -47,7 +51,7 @@ h3 {
 .button {
 	color: white;
 	float: left;
-	background: rgb(98, 134, 136);
+	background: #BF5FFF;
 	border-radius: 10px;
 	text-align: center;
 	width: 31.33%;
@@ -57,7 +61,7 @@ h3 {
 }
 
 .button:hover {
-	background: rgb(72, 115, 115);
+	background: #BDA0CB;
 }
 
 footer {
@@ -117,11 +121,11 @@ section {
 	margin-right: 10%;
 }
 
-.correct-fonts {
+.correct-foods {
 	width: 22%;
 }
 
-.incorrect-fonts {
+.incorrect-foods {
 	width: 22%;
 }
 
@@ -198,7 +202,7 @@ section ul li {
 	body {
 		background: rgb(54, 86, 89);
 		color: rgb(255, 255, 255);
-		font-family: 'Josefin Slab', serif;
+		font-family: 'Ubuntu', sans-serif;
 		font-weight: 300;
 		font-style: italic;
 		font-size: 25px;
@@ -220,7 +224,7 @@ section ul li {
 		margin: 0;
 	}
 
-	#word-image {
+	#food-image {
 		display: block;
 		margin: 40px auto;
 		width: 90%;
@@ -277,13 +281,13 @@ section ul li {
 		margin-top: 40px;
 	}
 
-	.correct-fonts {
+	.correct-foods {
 		float: left;
 		margin-top: 20px;
 		width: 48%;
 	}
 
-	.incorrect-fonts {
+	.incorrect-foods {
 		float: left;
 		margin-top: 20px;
 		width: 48%;
@@ -311,7 +315,7 @@ section ul li {
 	}
 
 	h1 {
-		font-family: Helvetica, sans-serif;
+		font-family: 'Ubuntu', sans-serif;
 		font-size: 2.7em;
 		font-weight: 300;
 		font-style: normal;
