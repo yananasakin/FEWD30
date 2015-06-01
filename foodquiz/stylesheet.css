@@ -33,7 +33,7 @@ header nav ol {
 
 header nav li {
   display: inline;
-	font-size: 30pt;
+	font-size: 20px;
 	margin: auto;
 	padding-left: 50px;
 	padding-right: 50px;
@@ -182,7 +182,7 @@ section {
 
 #play-again {
 	font-weight: 300;
-	background: #BF5FFF;
+	background: rgb(72, 115, 115);
 	border-radius: 10px;
 	text-align: center;
 	margin-top: 50px;
