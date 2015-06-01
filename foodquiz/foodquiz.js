@@ -1,8 +1,8 @@
 var levelNumber = 1;
 var score = 0;
 
-var foods = {
-      "Index [0]" : {},
+var dishes = {
+      "Index [0]" : {},  // acts as a placeholder //
 
       "Ceviche" : {
           Origin: "South American, Spanish",
@@ -58,7 +58,11 @@ var foods = {
       }
 }
 
-var foodAnswers = Object.keys(foods);
+var foodAnswers = Object.keys(dishes);
+// Sets "dishes" keys as an array.
+// Access each key name using an index number.
+// Used for writing "correct" button for each level (Current level number used as index.)
+
 
 var foodPool = [
     "Ceviche",
@@ -97,11 +101,15 @@ var foodPool = [
 
 ];
 
-var usedFoods = [];
+var useddishes = []; //// Array used to put fonts that are already used in buttons; prevents name from being written twice
+
+// Document Ready
 
 $(document).ready(function(){
       writeLevel();
 } )
+
+//// Writes buttons and correct button for levels 1 - 10
 
 function writeLevel() {
       if (levelNumber === 11) {
@@ -111,6 +119,7 @@ function writeLevel() {
           writeCorrectButton();
       }
 }
+// Checks if generated dish is in 'useddishes'
 
 function inArray (item, array) {
       var count = array.length || 1;
@@ -126,11 +135,11 @@ function inArray (item, array) {
 function writeButtons() {
 	for (var i = 0; i<4; i++) {
 		var foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// Chooses dish name at random
-		while (foodRandom === foodAnswers[levelNumber] || inArray(foodRandom, usedFoods) === true) { //// Conditions that need to be met before a dish name is written into a button
+		while (foodRandom === foodAnswers[levelNumber] || inArray(foodRandom, useddishes) === true) { //// Conditions that need to be met before a dish name is written into a button
 			foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// If conditions aren't met, then dish name is generated again
 		}
 		$("ul.button-container").append("<li class='button'>" + foodRandom + "</li>"); //// Appends new <li> with generated dish name
-		usedFoods.push(foodRandom); //// Puts dish name into list for later comparison
+		useddishes.push(foodRandom); //// Puts dish name into list for later comparison
 	}
 	$("ul.button-container li").on("click", answerWrong) //// Sets all <li> with "answerWrong" on click event
 			  				   .on("click", colorWrong); //// Sets all <li> with "colorWrong" on click event
@@ -196,7 +205,7 @@ function showInfo(foodorigin) {
 	$("footer").html(
     "<div id='info'></div>"+"<div class='footer-button' id='next'>Next Level</div>")
   .css({'opacity': '0'});
-	$("#info").html("<p><span class='bold'>Origin: </span>" + foods[foodorigin].Origin + "</p>");
+	$("#info").html("<p><span class='bold'>Origin: </span>" + dishes[foodorigin].Origin + "</p>");
 	$("#next").on("click", writeNextLevel);
 	$("footer").animate({opacity:'1'}, 300);
 }
@@ -206,7 +215,7 @@ function showInfo(foodorigin) {
 function writeNextLevel() {
 	levelNumber++;
 	$("ul").html("");
-	usedFoods = [];
+	useddishes = [];
 	writeLevel();
 	nextLevelAppearance();
 }
