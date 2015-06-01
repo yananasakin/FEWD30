@@ -1,0 +1,73 @@
+
+
+
+<!-- 1. Add an element to the page
+  a) does the element have content?
+  b) are there any attributes that need to be set?
+  c) where does it go?
+  d) what kind of element? (p, ul, li, etc.)
+
+2. Adding behavior to an element
+  a) what element?
+  b) what function?
+
+3. Changing something about an existing element
+  a) which element?
+  b) what are you changing?
+
+4. Go get data from a server (later)
+    - ajax (?)
+
+5. Given a set of things, do something to each of them (later)
+    - loops (?) -->
+
+<script>
+
+// Adding element to the page //
+// 1. Create the element
+document.createElement("li");
+// 2. Append the element to some element that is already there
+var parent = document.querySelector("ul");
+parent.appendChild(child);
+// 3. Setting the content
+child.textContent = "Do my homework, like Avand told me to";
+// 4. Setting some attribute
+child.setAttribute("class", "todo-item")
+
+// equivalent in JS is:
+// <ul>
+//   <li class="todo-item">Do my homework...</li>
+// </ul>
+
+
+// Add behavior to an element //
+// 1. which element do you want to attach behavior to? //
+var button = document.querySelector("#click-me");
+// 2. What happens when the event occurs (event handler)? //
+function sayCursorLocation(clickEvent) {
+  // This is just an example, you can do whatever you'd like //
+  var x = clickEvent.clientX;
+  var y = clickEvent.clientY;
+  alert("your mouse is at: " + x + ", " + y);
+}
+// 3. Attaching the event handler to the element //
+button.addEventListener("click", sayCursorLocation);
+
+// Manipulating an existing element //
+// 1. Get the element you want to change //
+var element = document.querySelector("img#logo")
+var paragraph = document.querySelector("p");
+// 2. Change an attribute: change source version to a small version in this case
+element.setAttribute("src", "http://example.com/images/small-logo.png");
+paragraph.textContent = "new"
+
+</script>
+
+<style>
+/* button with a class of important */
+button.important {
+
+}
+
+/*Button with an ID of click-me*/
+button#click-me

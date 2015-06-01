@@ -22,18 +22,27 @@
       padding: 0px;
       border:  0px;
       margin: 0px;
+      position: relative;
 
     }
     img {
         width: 200px;
         height: 55px;
         margin: 15px;
+        padding-top: 10px;
       }
+    nav {
+        position: absolute;
+        right: 0px;
+        top: 45px;
+        right: 20px;
+    }
     a
     {
       color: white;
-      float: right;
+      position: block;
       text-decoration: none;
+      text-shadow: 1px 1px 2px black;
     }
 
     main {
@@ -64,17 +73,18 @@
 <body>
   <header>
     <img src="http://i.imgur.com/dUsyVrb.jpg">
+    <nav>
     <a
     style="background: darkblue;
           padding: 15px;
           border-radius: 5%;
-          margin: 24px;
+          margin: 0px;
           box-shadow: 0 0 10px slategrey;
           "
 
           href="/SignUp">Sign Up</a>
     <a
-      style="margin: 25px;
+      style="margin: 0px;
             padding: 15px;"
           href="/Products">Products</a>
 

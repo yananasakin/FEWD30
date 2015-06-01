@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>Todo List</title>
+  </head>
+    <body>
+      <header>
+        <form>
+          <input type="text">
+          <button type="submit">Add</button>
+      </header>
+        <hr>
+        <main>
+          <ul id="todo-list">
+            <!-- An item like this will be created with JS:
+            <li class="todo-item">Homeworkd</li>-->
+          </ul>
+        </main>
+  <script>
+      var form = document.querySelector("form");
+  // find the input within the form, var form must be declared before this line for this to work //
+      var input = form.querySelector("input");
+      var list = document.querySelector("#todo-list");
+
+  function createTodoItem(text) {
+    var item1 = document.createElement("li");
+    item1.textContent = text;
+    item1.setAttribute("class", "todo-item");
+    return item1;
+  }
+
+  function formSubmitted(event) {
+    event.preventDefault();
+    list.appendChild(createTodoItem(input.value));
+    form.reset();
+  }
+
+  form.addEventListener("submit", formSubmitted);
+  input.focus();
+
+
+
+      </script>
+    </body
+</html>

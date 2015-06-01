@@ -1,0 +1,18 @@
+<script>
+var car = {};   // Generic object literal //
+
+car.color = "red";
+
+car.status = "off";
+
+car.start = function() {
+    this.status = "on";
+}
+
+car.stop = function() {
+    this.status = "off";
+}
+
+console.log(car.status);
+
+</script>

@@ -7,13 +7,29 @@
 </ul>
 
 <ol>
-  <li id="item-a"></li>
-  <li id="item-b"></li>
-  <li id="item-c"></li>
-  <li id="item-d"></li>
-  <li id="item-e"></li>
+
 </ol>
 
 <script>
+
+var groceries = [];
+
+var inputs = document.querySelectorAll("input");
+
+  for (var i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    groceries.push(input.value);
+  }
+  groceries.sort();
+  var list = document.querySelector("ol");
+
+  for (var i = 0; i < groceries.length; i++) {
+    var groceryItem = groceries[i];
+
+    var li = document.createElement("li");
+    li.textContent = groceryItem;
+    list.appendChild(li);
+
+  }
 // Copy the values from the first list into the second list but sort them!
 </script>
