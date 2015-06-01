@@ -6,45 +6,59 @@ var foods = {
 
       "Ceviche" : {
           Origin: "South American, Spanish",
+          Recipe:"http://www.cookincanuck.com/2014/04/tequila-spiked-shrimp-ceviche-recipe-avocado/",
+
       },
 
       "Shakshouka": {
           Origin: "North Africa",
+          Recipe:"http://www.feveravenue.com/",
+
       },
 
       "Fesenjan": {
           Origin: "Iran",
+          Recipe:"http://persianmama.com/chicken-in-walnut-pomegranate-sauce-khoresht-fesenjan/",
       },
 
       "Carpaccio": {
           Origin: "Italy",
+          Recipe:"http://doriannn.blogspot.de/2013/10/tartare-et-carpaccio-et-si-limportant.html",
       },
 
       "Goulash": {
           Origin: "Central Europe, Hungary",
+          Recipe: "http://thewanderlustkitchen.com/german-goulash/",
+
       },
 
       "Bibimbap": {
           Origin: "Korea",
+          Recipe: "http://foodiesfeed.com/korean-bibimbap-in-yamyam-berlin/",
       },
 
       "Pelmeni" : {
           Origin: "Russia",
+          Recipe: "http://www.kitchenrussian.com/articles/view/27",
       },
 
       "Chilaquiles": {
           Origin: "Mexico",
+          Recipe: "http://minimalistbaker.com/chipotle-tofu-chilaquiles/#_a5y_p=2521107",
       },
 
       "Okinomiyaki": {
           Origin: "Japan",
+          Recipe: "http://www.closetcooking.com/2011/10/okonomiyaki-hiroshima-style.html",
       },
 
       "Hachis Parmentier" :{
           Origin: "France",
-      }
-}
+          Recipe: "http://www.makingthymeforhealth.com/2014/03/09/vegan-lentil-shepherds-pie/",
 
+        }
+
+}
 var foodAnswers = Object.keys(foods);
 
 var foodPool = [
@@ -113,7 +127,7 @@ function inArray (item, array) {
 
 //// Writes all buttons at random
 function writeButtons() {
-	for (var i = 0; i<6; i++) {
+	for (var i = 0; i<4; i++) {
 		var foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// Chooses dish name at random
 		while (foodRandom === foodAnswers[levelNumber] || inArray(foodRandom, usedFoods) === true) { //// Conditions that need to be met before a dish name is written into a button
 			foodRandom = foodPool[Math.floor(Math.random()*foodPool.length)]; //// If conditions aren't met, then dish name is generated again
@@ -127,7 +141,7 @@ function writeButtons() {
 
 //// Overwrites one of the six "li" at random with the correct answer
 function writeCorrectButton() {
-	$("ul.button-container li").eq(Math.floor(Math.random()*6)).text(foodAnswers[levelNumber]) //// Writes food name of correct answer for current level
+	$("ul.button-container li").eq(Math.floor(Math.random()*4)).text(foodAnswers[levelNumber]) //// Writes food name of correct answer for current level
 											  .attr("id", "correct") //// Sets this button as the correct button
 											  .off("click", colorWrong) //// Turns off "colorWrong" click event set previously
 											  .off("click", answerWrong) //// Turns off "answerWrong" click event set previously
@@ -141,7 +155,7 @@ function answerCorrect() {
 	colorCorrect();
 	turnOffAllButtons();
 	correctFoods.push(foodAnswers[levelNumber]);
-	// showInfo(foodAnswers[levelNumber]);
+	showInfo(foodAnswers[levelNumber]);
 	scoreIncrease();
 }
 
@@ -157,7 +171,7 @@ function colorCorrect() {
 function answerWrong() {
 	turnOffAllButtons();
 	incorrectFoods.push(foodAnswers[levelNumber]);
-	// showInfo(foodAnswers[levelNumber]);
+	showInfo(foodAnswers[levelNumber]);
 }
 
 // Button Appearance
@@ -175,19 +189,78 @@ function turnOffAllButtons() {
 	$("ul.button-container li").off("click", answerWrong);
 }
 
-//////// LEVEL APPEARANCE AFTER CLICK EVENT ////////
+//// LEVEL APPEARANCE AFTER CLICK EVENT ////////
 
 function scoreIncrease() {
 	score++;
     $("#score").text("Score: " + score + " / 10");
 }
 
-// function showInfo(foodorigin) {
-// 	var foodQuery = $("#correct").text().split(" ").join("+")
-// 	$("footer").html("<div id='info'></div><div class='footer-button' id='next'>Next Level ></div><a class='footer-button' id='see-food' target='_blank' href='https://www.google.com/search?q=" + foodQuery + "'>See Dish</a>")
-// 	           .css({'opacity': '0'});
-// 	$("#info").html("<p><span class='bold'>Name: </span>" + foodorigin + "</p>
-//   <p><span class='bold'>Food Origin: </span>" + foods[foodname] </p>");
-// 	$("#next").on("click", writeNextLevel);
-// 	$("footer").animate({opacity:'1'}, 300);
-// }
+function showInfo(foodorigin) {
+	var foodQuery = $("#correct").text().split(" ").join("+");
+	$("footer").html(
+    "<div id='info'></div>"+"<div class='footer-button' id='next'>Next Level</div>")
+  .css({'opacity': '0'});
+	$("#info").html("<p><span class='bold'>Origin: </span>" + foods[foodorigin].Origin + "</p>");
+	$("#next").on("click", writeNextLevel);
+	$("footer").animate({opacity:'1'}, 300);
+}
+
+//////// WRITE NEXT LEVEL ////////
+
+function writeNextLevel() {
+	levelNumber++;
+	$("ul").html("");
+	usedFoods = [];
+	writeLevel();
+	nextLevelAppearance();
+}
+
+function nextLevelAppearance() {
+	$("footer").html(""); // Clears out footer
+    $("#level").text("Level " + levelNumber); // Changes Level # shown on window
+    $("#food-image").css({'opacity': '0', 'position': 'relative', 'top': '-75px'})
+    $("#food-image").attr("src", "images/level" + levelNumber + ".png") // Changes food-image
+					.animate({opacity: '1'}, {queue: false, duration: 600})
+					.animate({top: '0'}, {queue: false, duration: 400});
+}
+
+//////// FINAL SCORE PAGE
+
+function writeFinalScorePage() {
+	$("body").html("<section class='final-score'></section><section class='correct-foods'></section><section class='incorrect-foods'></section>")
+			 .css("opacity", "0");
+	$(".final-score").html("<h1>Food Quiz</h1><h4>Final Score:</h4><div class='score-box'><span id='large'>" + score +"</span> / 10</div><div id='play-again'>Play Again</div>");
+	$("#play-again").on("click", playAgain);
+	$(".correct-foods").html("<h4 class='list'>Correct:</h4><ul id='correct-list'></ul>");
+	$(".incorrect-foods").html("<h4 class='list'>Incorrect:</h4><ul id='incorrect-list'></ul>")
+	writeFoodList();
+	$("body").animate({opacity: '1'}, 750);
+}
+
+function writeFoodList() {
+	$.each(correctFoods, function(i) {
+		$("<li/>").text(correctFoods[i]).appendTo($("ul#correct-list"));
+	});
+	$.each(incorrectFoods, function(i) {
+		$("<li/>").text(incorrectFoods[i]).appendTo($("ul#incorrect-list"));
+	});
+	$("section ul li").css({'opacity': '0', 'line-height': '0'})
+					  .animate({opacity: '1'}, {queue: false, duration: 1500})
+					  .animate({'line-height': '25px'}, {queue: false, duration: 1000})
+}
+
+function playAgain() {
+	levelNumber = 1;
+	score = 0;
+	correctFoods = [];
+	incorrectFoods = [];
+	writeEmptyLevel();
+	writeLevel();
+}
+
+function writeEmptyLevel() {
+	$("body").html("<header></header><div class='food-container'></div><ul class='button-container'></ul><footer></footer>");
+	$("header").html("<h3 id='level'>Level 1</h3><h3 id='score'>Score: 0 / 10</h3>");
+	$(".food-container").html("<img src='images/level1.png' id='food-image'>");
+}

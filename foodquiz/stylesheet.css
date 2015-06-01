@@ -1,40 +1,78 @@
 
 body {
-	background: rgb(45, 15, 100);
-	color: rgb(255, 255, 255);
-	font-family: 'Ubuntu', sans-serif;
+
+	font-family: 'Montserrat', sans-serif;
 	font-weight: 300;
-	font-style: italic;
 	font-size: 25px;
+	margin: 0px;
 }
 
 .center {
-	width: 700px;
+	width: 100%;
 	margin: auto;
 }
 
 header {
-	overflow: hidden;
-	margin-top: 30px;
-	padding: 20px 0;
+	padding: 50px 0;
+	background-color: #BF5FFF;
+	width: 100%;
+}
+
+header nav {
+  text-shadow: 0 1px 0 grey;
+  margin: auto;
+	max-width: 1000px;
+
+}
+header nav ol {
+  margin: 0px 0px;
+  line-height: 5px;
+	text-align: center;
+
+}
+
+header nav li {
+  display: inline;
+	font-size: 30pt;
+	margin: auto;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+header nav a {
+
+  text-decoration: none;
+	color: #61422D;
+
 }
 
 h3 {
 	font-weight: 300;
-	margin-top: 0;
+	margin-top: 65px;
+	font-size: 50px;
+	color: #61422D;
+}
+
+h1 {
+	padding-top: 170px;
+	text-align: center;
+	margin: auto;
+	color: #61422D;
 }
 
 #level {
-	float: left;
+	float: right;
+	padding-right: 15%;
 }
 
 #score {
-	float: right;
+	float: left;
+	padding-left: 15%;
 }
 
 #food-image {
 	display: block;
-	margin: 20px auto;
+	margin: 25px auto;
 }
 
 .food-container {
@@ -44,8 +82,11 @@ h3 {
 .button-container {
 	overflow: hidden;
 	list-style-type: none;
-	padding-left: 0;
-	margin: 0;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin: auto;
+	text-align: center;
+	max-width: 1000px;
 }
 
 .button {
@@ -53,8 +94,9 @@ h3 {
 	float: left;
 	background: #BF5FFF;
 	border-radius: 10px;
+	border: 1px solid #E4BBEC;
 	text-align: center;
-	width: 31.33%;
+	width: 45%;
 	margin: 1% 1%;
 	padding: 3% 0;
 	transition: background 200ms;
@@ -66,40 +108,41 @@ h3 {
 
 footer {
 	margin-top: 3%;
-	float: both;
+	/*float: both;*/
 }
 
 #info {
-	float: left;
-	font-size: 0.75em;
-	margin-left: 1%;
+	margin: auto;
+	font-size: 45px;
 }
 
 p {
-	margin: 1% 0;
+	text-align: center;
 }
 
 .bold {
-	color: rgb(98, 134, 136);
+	color: #61422D;
 	font-weight: 600;
+	font-size: 45px;
+	margin: auto;
 }
 
 .footer-button {
-	float: right;
-	color: rgb(54, 86, 89);
-	background: rgb(255, 255, 255);
+	color: white;
+	background: #BF5FFF;
 	border-radius: 10px;
+	border: 1px solid #E4BBEC;
 	text-align: center;
-	margin: 1.5% 1% 0 0.5%;
-	width: 18%;
-	padding: 1.75% 0;
-	font-size: 0.75em;
-	font-weight: 600;
+	width: 25%;
+	margin: auto;
+	padding: 3% 0;
+	transition: background 200ms;
+	font-size: 55px;
 }
 
 .footer-button:hover {
-	background: rgb(98, 134, 136);
-	color: rgb(255, 255, 255);
+	background: #BDA0CC;
+	color: white;
 	transition: background 200ms, color 200ms;
 }
 
@@ -118,7 +161,7 @@ section {
 
 .final-score {
 	width: 38%;
-	margin-right: 10%;
+	margin: auto;
 }
 
 .correct-foods {
@@ -130,25 +173,27 @@ section {
 }
 
 .score-box {
-	background: rgb(98, 134, 136);
+	background: #BF5FFF;
 	border-radius: 10px;
 	text-align: center;
 	font-size: 2em;
+	margin: auto;
 }
 
 #play-again {
 	font-weight: 300;
-	background: rgb(72, 115, 115);
+	background: #BF5FFF;
 	border-radius: 10px;
 	text-align: center;
 	margin-top: 50px;
 	padding: 4% 0;
+	margin: auto;
 	transition: background 150ms, color 150ms;
 }
 
 #play-again:hover {
 	background: rgb(98, 134, 136);
-	color: rgb(255, 255, 255);
+	color: #BF5FFF;
 }
 
 h1 {
@@ -161,14 +206,14 @@ h1 {
 
 h6 {
 	/*color: rgb(98, 134, 136);*/
-	margin: 0;
+	margin: auto;
 	font-weight: 300;
 }
 
 h4 {
-	color: rgb(98, 134, 136);
+	color: #BF5FFF;
 	font-weight: 600;
-	margin: 0;
+	margin: auto;
 }
 
 .final-score h4 {
@@ -257,7 +302,7 @@ section ul li {
 		margin: 1% 1% 0 0.5%;
 		width: 30%;
 		padding: 1% 0;
-		font-size: 0.6em;
+		font-size: 1em;
 		font-weight: 600;
 		float: right;
 		clear: right;
@@ -265,6 +310,7 @@ section ul li {
 
 	#next {
 		padding: 3% 0;
+
 	}
 
 	/* Final Score Page */
